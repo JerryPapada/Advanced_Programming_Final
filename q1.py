@@ -59,6 +59,7 @@ def preprocess_text(text):
     )
     text = text.str.replace(r"\b\w{1,3}\b", "", regex=True)
     text = text.str.replace(r"\s+", " ", regex=True).str.strip()
+    text=(text.str.normalize("NFD").str.replace(r"[\u0300-\u036f]","", regex=True)) #ΤΟΝΟΙ
     return text
 
 df["clean_text"] = preprocess_text(df["text"])
@@ -100,7 +101,7 @@ print("Τελικό μέγεθος:", df.shape)
 #--------------------------------------
 mati_keywords = [
     "ματι", "πυρκαγια", "φωτια", "νεκρος", "103",
-    "ραφηνα", "νεο βουτζα", "κινέτα",
+    "ραφηνα", "νεο βουτζα", "κινετα",
     "εκκενωση", "καμμενος", "τραγωδια",
     "καταστροφη", "θυμα","πνιγμος","λιμενικο"
 ]
